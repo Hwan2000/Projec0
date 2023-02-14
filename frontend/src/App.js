@@ -1,9 +1,10 @@
 import axios from 'axios';
+import Simulated from './Simulated';
 import { useEffect, useState } from 'react';
 
 function App() {
 
-  const [coinArray, setCoinArray] = useState();
+  const [coinArray, setCoinArray] = useState([]);
 
   useEffect(()=>{
     const getCoin = async () => {
@@ -22,8 +23,9 @@ function App() {
   const rows = coinArray.map((row, index) =>
     <tr key={index}>
       <td>{index+1}</td>
-      <td>{row.id}</td>
-      <td>{row.max_supply}</td>
+      <td>{row.name}</td>
+      <td>{row.quotes.KRW.ath_price}</td>
+      <td>{row.last_updated}</td>
     </tr>
   )
 
@@ -35,13 +37,15 @@ function App() {
           <tr>
             <th>Ranking</th>
             <th>Name</th>
-            <th>Max_supply</th>
+            <th>Price</th>
+            <th>updated</th>
           </tr>
         </thead>
         <tbody>
           {rows}
         </tbody>
       </table>
+      <Simulated/>
     </div>
   );
 }
