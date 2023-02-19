@@ -3,6 +3,7 @@ const axios = require('axios');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const moneyRoute = require('./routes/startMoney');
+const BuyRoute = require('./routes/Buy');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use('/money',moneyRoute);
+app.use('/buy', BuyRoute);
 
 app.get('/',async (req,res) => {
     await axios.get('https://api.coinpaprika.com/v1/tickers?quotes=KRW')

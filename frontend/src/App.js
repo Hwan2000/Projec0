@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Simulated from './Simulated';
 import { useEffect, useState } from 'react';
+import Buy from './Buy';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
       <td>{row.quotes.KRW.ath_price}</td>
       <td>{row.last_updated}</td>
       <td>{row.quotes.KRW.market_cap}</td>
+      <td><Buy name={row.name} ath_price={row.quotes.KRW.ath_price}/></td>
     </tr>
   )
 
@@ -41,6 +43,7 @@ function App() {
             <th>Price</th>
             <th>Updated</th>
             <th>Calculating supply</th>
+            <th>Buy</th>
           </tr>
         </thead>
         <tbody>
