@@ -1,24 +1,44 @@
-import { useEffect } from "react";
 import axios from "axios";
+import { useState } from "react";
 
 const Simulated = () =>{
+    const [money,setMoney] = useState(0);
 
-    useEffect(() => {
-        const getMoney = async () =>{
-            await axios.get('http://localhost:5000/get-money',{withCredentials:true})
-            .then(({data})=>{
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if(money === ""){
+            await axios.get(`http://localhost:5000/money/setMoney/1000000`, {
+                withCredentials: true,
+              })
+              .then(({ data }) => {
                 console.log(data);
-            })
-            .catch((error) => {
+              })
+              .catch((error) => {
                 console.error(error);
-            })
+              });
+              setMoney(0);
+            return;
         }
-        getMoney();
-    },[])
+        await axios.get(`http://localhost:5000/money/setMoney/${money}`, {
+          withCredentials: true,
+        })
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+        setMoney(0);
+      };
 
     return(
         <>
-            <p>hello Simulated</p>
+            <h3>초기 자본 설정</h3>
+            <form onSubmit={handleSubmit}>
+                <input type="number" value={money} onChange={(event) => {setMoney(event.target.value)}}/>
+                <button type="submit">설정</button>
+                <p>설정 시, 계좌가 초기화됩니다.</p>
+            </form>
         </>
     )
 }
