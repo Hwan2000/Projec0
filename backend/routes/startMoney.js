@@ -15,7 +15,7 @@ router.route('/setMoney/:money')
 
     
     const money = req.params.money;
-    res.cookie('money', money, { httpOnly: true });
+    res.cookie('money', money, { httpOnly: false, path:'/' });
     res.status(200).send('set-money');
   });
 
