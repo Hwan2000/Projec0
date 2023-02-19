@@ -26,19 +26,21 @@ function App() {
       <td>{row.name}</td>
       <td>{row.quotes.KRW.ath_price}</td>
       <td>{row.last_updated}</td>
+      <td>{row.quotes.KRW.market_cap}</td>
     </tr>
   )
 
   return (
     <div>
       <h1>hello world</h1>
-      <table>
+      <table border="1">
         <thead>
           <tr>
             <th>Ranking</th>
             <th>Name</th>
             <th>Price</th>
-            <th>updated</th>
+            <th>Updated</th>
+            <th>Calculating supply</th>
           </tr>
         </thead>
         <tbody>
