@@ -19,4 +19,12 @@ router.route('/setMoney/:money')
     res.status(200).send('set-money');
   });
 
+  router.route('/')
+  .get(async (req,res) => {
+    if(req.cookies.money === 0){
+      res.status(200).send(0);
+    }
+    res.status(200).send(req.cookies.money);
+  })
+
 module.exports = router;    
