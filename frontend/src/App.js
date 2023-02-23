@@ -2,10 +2,12 @@ import axios from 'axios';
 import Simulated from './Simulated';
 import { useEffect, useState } from 'react';
 import Buy from './Buy';
+import Wallet from './Wallet';
 
 function App() {
 
   const [coinArray, setCoinArray] = useState([]);
+  const [money, setMoney] = useState(0);
 
   useEffect(()=>{
     const getCoin = async () => {
@@ -21,6 +23,21 @@ function App() {
     getCoin();
   },[])
 
+
+  useEffect(() => {
+    const getMoney = async () => {
+      await axios.get('http://localhost:5000/money',{withCredentials:true})
+      .then(({data}) => {
+        setMoney(data);
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+    }
+    getMoney();
+  })
+ 
+
   const rows = coinArray.map((row, index) =>
     <tr key={index}>
       <td>{index+1}</td>
@@ -28,13 +45,13 @@ function App() {
       <td>{row.quotes.KRW.ath_price}</td>
       <td>{row.last_updated}</td>
       <td>{row.quotes.KRW.market_cap}</td>
-      <td><Buy name={row.name} ath_price={row.quotes.KRW.ath_price}/></td>
+      <td><Buy name={row.name} ath_price={row.quotes.KRW.ath_price} money={money}/></td>
     </tr>
   )
 
   return (
     <div>
-      <h1>hello world</h1>
+      <h1>{money}</h1>
       <table border="1">
         <thead>
           <tr>
@@ -51,6 +68,7 @@ function App() {
         </tbody>
       </table>
       <Simulated/>
+      <Wallet/>
     </div>
   );
 }

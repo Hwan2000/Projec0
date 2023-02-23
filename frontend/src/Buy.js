@@ -2,13 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-const Buy = ({name, ath_price}) =>{
+const Buy = ({name, ath_price, money}) =>{
 
     const [amount, setAmount] = useState('');
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
-        if(parseInt(Cookies.get('money')) < parseInt(amount)){
+        if(parseInt(money) < parseInt(amount)){
             alert('돈이 부족합니다');
             return;
         } else if(parseInt(amount) < 0){

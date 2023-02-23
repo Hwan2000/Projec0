@@ -3,8 +3,9 @@ const router = express.Router();
 
 router.route('/')
 .post(async (req,res) => {
-    console.log(req.cookies);
     res.cookie('money', parseInt(req.cookies.money)-parseInt(req.body.amount), {httpOnly:false});
+    res.cookie(req.body.name, req.body.ath_price, {httpOnly: false});
+    res.cookie(req.body.name+'_order_history',String(req.body.hour) + String(req.body.minute), {httpOnly: true});
     res.status(200).send('ok');
     //res.cookie('money', nowMoney-req.body)
     //1. 머니에서 현재 받은 가격을 뺌
