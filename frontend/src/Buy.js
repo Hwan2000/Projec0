@@ -17,11 +17,12 @@ const Buy = ({name, ath_price}) =>{
         } else {
             await axios.post(`http://localhost:5000/buy`, {
                 name: name,
-                money: parseInt(Cookies.get('money')),
                 amount: parseInt(amount),
                 ath_price: parseInt(amount)/ath_price,
                 hour: new Date().getHours(),
                 minute: new Date().getMinutes(), 
+            },{
+                withCredentials:true
             })
             .then(({data}) => {
                 console.log(data);
