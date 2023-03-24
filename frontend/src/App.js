@@ -9,6 +9,7 @@ function App() {
   const [coinArray, setCoinArray] = useState([]);
   const [money, setMoney] = useState(0);
 
+  //코인 데이터 가져오기
   useEffect(()=>{
     const getCoin = async () => {
       await axios.get('http://localhost:5000')
@@ -23,7 +24,7 @@ function App() {
     getCoin();
   },[])
 
-
+  //돈 데이터 가져오기
   useEffect(() => {
     const getMoney = async () => {
       await axios.get('http://localhost:5000/money',{withCredentials:true})
@@ -68,7 +69,7 @@ function App() {
         </tbody>
       </table>
       <Simulated/>
-      <Wallet/>
+      <Wallet money={money} coinArray={coinArray}/>
     </div>
   );
 }
