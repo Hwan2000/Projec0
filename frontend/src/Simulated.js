@@ -4,10 +4,9 @@ import { useState } from "react";
 const Simulated = () =>{
     const [money,setMoney] = useState(0);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        if(money === ""){
-            await axios.get(`http://localhost:5000/money/setMoney/1000000`, {
+    const handleSubmit = async () => {
+        if(money === "" || money <= 0){
+            await axios.get(`http://localhost:5000/money/setMoney/${1000000}`, {
                 withCredentials: true,
               })
               .then(({ data }) => {

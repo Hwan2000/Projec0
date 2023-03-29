@@ -2,7 +2,6 @@ import axios from 'axios';
 import Simulated from './Simulated';
 import { useEffect, useState } from 'react';
 import Buy from './Buy';
-import Wallet from './Wallet';
 
 function App() {
 
@@ -25,7 +24,7 @@ function App() {
   },[])
 
   //돈 데이터 가져오기
-  useEffect(() => {
+  useEffect(()=>{
     const getMoney = async () => {
       await axios.get('http://localhost:5000/money',{withCredentials:true})
       .then(({data}) => {
@@ -36,23 +35,29 @@ function App() {
       })
     }
     getMoney();
-  })
+  });
  
 
   const rows = coinArray.map((row, index) =>
     <tr key={index}>
       <td>{index+1}</td>
       <td>{row.name}</td>
-      <td>{row.quotes.KRW.ath_price}</td>
+      <td>{row.quotes.KRW.price}</td>
       <td>{row.last_updated}</td>
-      <td>{row.quotes.KRW.market_cap}</td>
+      <td>{row.quotes.KRW.percent_change_24h}</td>
       <td><Buy name={row.name} ath_price={row.quotes.KRW.ath_price} money={money}/></td>
     </tr>
   )
 
   return (
+    <>
+    { (money === "") ?
     <div>
-      <h1>{money}</h1>
+      <Simulated money={money} setMoney={setMoney}/>
+    </div>
+    :
+    <div>
+      <h1>SEED:{money}</h1>
       <table border="1">
         <thead>
           <tr>
@@ -60,7 +65,7 @@ function App() {
             <th>Name</th>
             <th>Price</th>
             <th>Updated</th>
-            <th>Calculating supply</th>
+            <th>Change(24H)</th>
             <th>Buy</th>
           </tr>
         </thead>
@@ -68,9 +73,9 @@ function App() {
           {rows}
         </tbody>
       </table>
-      <Simulated/>
-      <Wallet money={money} coinArray={coinArray}/>
     </div>
+    }
+    </>
   );
 }
 
