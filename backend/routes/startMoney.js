@@ -4,10 +4,6 @@ const router = express.Router();
 router.route('/setMoney/:money')
   .get(async (req, res) => {
 
-    // Object.keys(req.cookies).forEach((cookieName) => {
-    //     res.clearCookie(cookieName);
-    // });
-
     const cookies = Object.keys(req.cookies);
     for (let i = 0; i < cookies.length; i++) {
         res.clearCookie(cookies[i]);
@@ -27,4 +23,4 @@ router.route('/setMoney/:money')
     res.status(200).send(req.cookies.money);
   })
 
-module.exports = router;    
+module.exports = router;   
