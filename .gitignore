@@ -256,3 +256,7 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,java,gradle,intellij,visualstudiocode,react
+
+
+# 인텔리제이 .idea 폴더
+.idea
