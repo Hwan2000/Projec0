@@ -17,5 +17,5 @@ public class CoinWallet {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "coin_id")
-	private Long coin_id;
+	private CoinInfo coinInfo;
 }
