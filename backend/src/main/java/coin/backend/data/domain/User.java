@@ -2,6 +2,8 @@ package coin.backend.data.domain;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 import java.math.BigDecimal;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Getter
 public class User {
 	@Id @GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -26,5 +29,5 @@ public class User {
 	private List<CoinWallet> coinWallets;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<TradingRecord> tradingRecords;
+	private List<Trade> trades;
 }
