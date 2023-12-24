@@ -21,7 +21,7 @@ public class UserController {
     * 회원가입 컨트롤러
     * */
     @PostMapping("/signup")
-    public ResponseEntity<?> singUp(@RequestBody SignUpReq signUpReq){
+    public ResponseEntity<?> signUp(@RequestBody SignUpReq signUpReq){
         try{
             userService.insertUser(signUpReq.getUserName(), signUpReq.getUserPassword());
             return ResponseEntity.status(HttpStatus.OK).build();
