@@ -23,7 +23,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<?> singUp(@RequestBody SignUpReq signUpReq){
         try{
-            userService.insertUser(signUpReq.getUser_name(), signUpReq.getUser_password());
+            userService.insertUser(signUpReq.getUserName(), signUpReq.getUserPassword());
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
             e.printStackTrace();

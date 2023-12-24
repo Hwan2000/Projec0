@@ -23,15 +23,15 @@ public class UserService {
 	* 회원가입 비즈니스 로직
 	* */
 	@Transactional
-	public void insertUser(String user_name, String user_password){
+	public void insertUser(String userName, String userPassword){
 
 		try{
 			// 현재 회원이 있는지 검사
-			Optional<User> byUser_name = userRepository.findByUser_name(user_name);
+			Optional<User> byUserName = userRepository.findByUserName(userName);
 
 			// 없으면 삽입
-			if(byUser_name.isEmpty()){
-				User user = new User(user_name, user_password);
+			if(byUserName.isEmpty()){
+				User user = new User(userName, userPassword);
 				userRepository.save(user);
 			}
 		} catch (Exception e){

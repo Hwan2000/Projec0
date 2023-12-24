@@ -14,6 +14,6 @@ public class CoinInfo {
 
 	private String name;
 
-	private BigDecimal coin_price;
+	private BigDecimal coinPrice;
 
 }

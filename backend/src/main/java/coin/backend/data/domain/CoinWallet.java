@@ -9,7 +9,7 @@ public class CoinWallet {
 	@Column(name = "coin_wallet_id")
 	private Long id;
 
-	private BigDecimal coin_balance;
+	private BigDecimal coinBalance;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_uuid")
