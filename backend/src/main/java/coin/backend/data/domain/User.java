@@ -20,14 +20,14 @@ public class User {
 	@Id @GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@Column(columnDefinition = "BINARY(16)")
-	private UUID user_uuid;
+	private UUID userUuid;
 
-	private String user_password;
+	private String userPassword;
 
 	@Column(unique = true)
-	private String user_name;
+	private String userName;
 
-	private BigDecimal cash_balance;
+	private BigDecimal cashBalance;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<CoinWallet> coinWallets;
@@ -38,14 +38,14 @@ public class User {
 	/*
 	* singUp 함수에서만 쓰이는 생성자.
 	* */
-	public User(String user_name, String user_password) {
+	public User(String userName, String userPassword) {
 		// 랜덤 UUID
-		this.user_uuid = UUID.randomUUID();
+		this.userUuid = UUID.randomUUID();
 		// 시드머니 100만원
-		this.cash_balance = BigDecimal.valueOf(1000000);
+		this.cashBalance = BigDecimal.valueOf(1000000);
 		// 유저 이름
-		this.user_name = user_name;
+		this.userName = userName;
 		// 유저 비밀번호
-		this.user_password = user_password;
+		this.userPassword = userPassword;
 	}
 }
