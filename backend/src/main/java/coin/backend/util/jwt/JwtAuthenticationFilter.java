@@ -3,6 +3,7 @@ package coin.backend.util.jwt;
 import coin.backend.data.domain.RefreshToken;
 import coin.backend.data.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
