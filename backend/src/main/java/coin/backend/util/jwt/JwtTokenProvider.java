@@ -1,7 +1,12 @@
 package coin.backend.util.jwt;
 
+import coin.backend.util.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -10,12 +15,14 @@ import java.time.Duration;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
     /*
     * 사용할 key
     */
     private Key key;
+    private final UserDetailsServiceImpl userDetailsService;
     
     /*
     * secretKey 인코딩
@@ -57,11 +64,10 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    /*
-    * 토큰 유효성 검사 코드
-    * 리턴값: bool
-    * 토큰이 유효하면 true 리턴, 유효기간 만료 등의 이유로 토큰이 유효하지 않으면 false return
-    * */
+    /**
+     * @param token : 토큰을 받아서 유효한 토큰인지 아닌지 확인
+     * @return : 토큰이 유효한지 아닌지 리턴
+     */
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
@@ -70,10 +76,11 @@ public class JwtTokenProvider {
             return false;
         }
     }
-    
-    /*
-    * jwt에서 subject(user uuid) 추출
-    * */
+
+    /**
+     * @param token : 토큰을 받아서 내부의 UUID를 리턴한다.
+     * @return : 토큰 내부의 UUID
+     */
     public String getUUID(String token) {
         try {
             Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
@@ -81,5 +88,15 @@ public class JwtTokenProvider {
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e) {
             return null;
         }
+    }
+
+    /**
+     * @param token : 토큰을 받아서 Authentication을 만든다.
+     * @return : 생성된 usernamePasswordAuthentication 객체.
+     */
+    public Authentication getAuthentication(String token){
+
+        UserDetails userDetails = userDetailsService.loadUserByUserUUID(token);
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }
