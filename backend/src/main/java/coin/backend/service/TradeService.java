@@ -35,6 +35,15 @@ public class TradeService {
 	}
 
 	private void validateTrade(User user, CoinInfo coinInfo, TradeType type, BigDecimal amount, BigDecimal price) {
-
+		if (type == TradeType.BUY) {
+			if (user.getCashBalance().compareTo(amount.multiply(price)) < 0) {
+				throw new IllegalStateException("잔고가 부족합니다.");
+			}
+		}
+		else if (type == TradeType.SELL) {
+			if (user.getCoinWallet(coinInfo.getId()).getCoinBalance().compareTo(amount) < 0) {
+				throw new IllegalStateException("코인 보유량이 부족합니다.");
+			}
+		}
 	}
 }

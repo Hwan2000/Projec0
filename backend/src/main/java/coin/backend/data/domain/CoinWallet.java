@@ -1,9 +1,13 @@
 package coin.backend.data.domain;
 
 import javax.persistence.*;
+
+import lombok.Getter;
+
 import java.math.BigDecimal;
 
 @Entity
+@Getter
 public class CoinWallet {
 	@Id @GeneratedValue
 	@Column(name = "coin_wallet_id")

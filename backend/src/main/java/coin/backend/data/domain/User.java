@@ -32,6 +32,16 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<CoinWallet> coinWallets;
 
+	public CoinWallet getCoinWallet(Long coinId) {
+		for (CoinWallet w : this.coinWallets)
+		{
+			if (w.getCoinInfo().getId() == coinId) {
+				return w;
+			}
+		}
+		throw new IllegalStateException("coinId not found");
+	}
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Trade> trades;
 

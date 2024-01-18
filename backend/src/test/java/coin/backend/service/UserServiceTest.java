@@ -15,12 +15,9 @@ import coin.backend.data.repository.UserRepository;
 @SpringBootTest
 @Transactional
 public class UserServiceTest {
-	@Autowired
-	UserService userService;
-	@Autowired
-	UserRepository userRepository;
-	@Autowired
-	EntityManager em;
+
+	@Autowired UserService userService;
+	@Autowired UserRepository userRepository;
 
 	@Test
 	public void 회원가입() throws Exception {
