@@ -36,7 +36,9 @@ jobs:
       
       # gradle 빌드
       - name: Build with Gradle
-        run: ./gradlew build
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build
         working-directory: ${{ env.workdir }}
 
       # 도커 이미지 빌드, 푸시
