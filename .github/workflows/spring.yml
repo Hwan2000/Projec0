@@ -32,10 +32,12 @@ jobs:
           touch ./application.properties
           echo "${{ secrets.PROPERTIES }}" > ./application.properties
         shell: bash
+        working-directory: ${{ env.workdir }}
       
       # gradle 빌드
       - name: Build with Gradle
         run: ./gradlew build
+        working-directory: ${{ env.workdir }}
 
       # 도커 이미지 빌드, 푸시
       # 도커 이미지 빌드는 dockerfile을 사용
@@ -44,6 +46,7 @@ jobs:
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
           docker build -t ${{ secrets.DOCKER_REPO }}:backend .
           docker push ${{ secrets.DOCKER_REPO }}:backend
+        working-directory: ${{ env.workdir }}
       
       # 서버에 접속, 스크립트 실행
       - name: SSH and run scripts
