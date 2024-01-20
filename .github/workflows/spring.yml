@@ -56,7 +56,8 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.HOST_USERNAME }}
-          key: ${{ secrets.HOST_KEY }}
+          password: ${{ secrets.HOST_KEY }}
+          port: 1024
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/projec0:backend
             docker compose down
